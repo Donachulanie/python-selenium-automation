@@ -29,6 +29,7 @@ def verify_product_name(context):
 
 @then('Verify “Your cart is empty” message is shown')
 def verify_message(context):
-    expected_result = 'Your cart is empty'
-    actual_result = context.driver.find_element(*CART_PAGE_YOUR_CART_IS_EMPTY_TEXT).text
-    assert expected_result in actual_result, f'Expected text {expected_result} not in actual {actual_result}'
+    context.app.cart_page.verify_cart_empty()
+    #expected_result = 'Your cart is empty'
+    #actual_result = context.driver.find_element(*CART_PAGE_YOUR_CART_IS_EMPTY_TEXT).text
+    #assert expected_result in actual_result, f'Expected text {expected_result} not in actual {actual_result}'

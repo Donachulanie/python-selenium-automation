@@ -1,20 +1,20 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
-from time import sleep
 
-SEARCH_FIELD = (By.ID, 'search')
-SEARCH_BTN = (By.XPATH, "//button[@data-test='@web/Search/SearchButton']")
+
+
 SIGN_IN_ICON =(By.XPATH, "//a[@data-test='@web/AccountLink']")
-CART_BTN = (By.CSS_SELECTOR, "a[data-test='@web/CartLink']")
+
 HEADER_LINKS = (By.CSS_SELECTOR, "[data-test*='@web/GlobalHeader/UtilityHeader/']")
 HEADER_LINKS_AMOUNT = (By.CSS_SELECTOR, "[data-test*='@web/GlobalHeader/UtilityHeader/']")
 SIGN_IN_TEXT_ON_SIDE_NAV_PAGE = (By.XPATH, "//h2[@data-test='modal-drawer-heading']")
-CART_PAGE_YOUR_CART_IS_EMPTY_TEXT = (By.CSS_SELECTOR, ".sc-fe064f5c-0.fJliSz")
+
 
 @given('Open target main page')
 def open_main(context):
-    context.driver.get('https://www.target.com/')
+    context.app.main_page.open_main()
+    # context.driver.get('https://www.target.com/')
 
 
 # @when('Search for tea')
@@ -26,9 +26,10 @@ def open_main(context):
 
 @when('Search for {product}')
 def search_product(context,product):
-    context.driver.find_element(*SEARCH_FIELD).send_keys(product)
-    context.driver.find_element(*SEARCH_BTN).click()
-    sleep(10)
+    context.app.header.search_product(product)
+    #context.driver.find_element(*SEARCH_FIELD).send_keys(product)
+    #context.driver.find_element(*SEARCH_BTN).click()
+    #sleep(10)
 
 
 
@@ -41,8 +42,9 @@ def click_sign_in_icon(context):
 
 @when('Click on Cart icon')
 def click_icon(context):
-    context.driver.find_element(*CART_BTN).click()
-    context.driver.wait.until(EC.visibility_of_element_located(CART_PAGE_YOUR_CART_IS_EMPTY_TEXT))
+    context.app.header.click_cart()
+    #context.driver.find_element(*CART_BTN).click()
+    #context.driver.wait.until(EC.visibility_of_element_located(CART_PAGE_YOUR_CART_IS_EMPTY_TEXT))
 
 
 
