@@ -11,20 +11,21 @@ Feature: Tests for search
 #    When Search for coffee
 #    Then Verify search results shown for coffee
 #
-#  Scenario: User can search for a product
-#    Given Open target main page
-#    When Search for mug
-#    Then Verify search results shown for mug
-
-  Scenario Outline: User can search for a product
+  Scenario: User can search for a product
     Given Open target main page
-    When Search for <product>
-    Then Verify search results shown for <product>
-    Examples:
-      | product |
-      | tea     |
-      | coffee  |
-      | mug     |
+    When Search for mug
+    Then Verify search results shown for mug
+    Then Verify search term mug in URL
+
+#  Scenario Outline: User can search for a product
+#    Given Open target main page
+#    When Search for <product>
+#    Then Verify search results shown for <product>
+#    Examples:
+#      | product |
+#      | tea     |
+#      | coffee  |
+#      | mug     |
 
 
 #Scenario: Verify that user can see product names and images

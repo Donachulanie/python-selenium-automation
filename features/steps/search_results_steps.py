@@ -4,9 +4,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from behave import given, when, then
 from time import sleep
 
-ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[id*='addToCartButtonOr']")
+#ADD_TO_CART_BTN = (By.CSS_SELECTOR, "[id*='addToCartButtonOr']")
 ADD_TO_CART_SIDE_NAV_BTN = (By.CSS_SELECTOR, "[data-test=content-wrapper] [id*='addToCartButtonOr']")
-PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='content-wrapper'] h4")
+#PRODUCT_NAME = (By.CSS_SELECTOR, "[data-test='content-wrapper'] h4")
 #VERIFY_SEARCH_RESULTS = (By.XPATH, "//div[@data-test='resultsHeading']")
 LISTINGS = (By.CSS_SELECTOR, "[data-test*='@web/site-top-of-funnel/ProductCardWrapper']")
 PRODUCT_TITLE = (By.CSS_SELECTOR, "[data-test='product-title']")
@@ -28,21 +28,29 @@ def verify_search_results(context,product):
     #assert product in actual_result, f'Expected text {product} not in actual {actual_result}'
 
 
+@then('Verify search term {product} in URL')
+def verify_search_url(context,product):
+    context.app.search_results.verify_search_url(product)
+
+
 @when('Click on Add to Cart button')
 def click_on_add_to_cart(context):
-    context.driver.find_element(*ADD_TO_CART_BTN).click()
-    context.driver.wait.until(EC.visibility_of_element_located(ADD_TO_CART_SIDE_NAV_BTN))
+    context.app.search_results.click_on_add_to_cart()
+    # context.driver.find_element(*ADD_TO_CART_BTN).click()
+    # context.driver.wait.until(EC.visibility_of_element_located(ADD_TO_CART_SIDE_NAV_BTN))
 
 
-@when('Store product name')
-def store_product_name(context):
-    context.product_name = context.driver.find_element(*PRODUCT_NAME).text
-    print(f'Product stored: {context.product_name}')
+@when('Store {product} name')
+def store_product_name(context,product):
+    context.app.search_results.store_product_name(product)
+    #context.product_name = context.driver.find_element(*PRODUCT_NAME).text
+    #print(f'Product stored: {context.product_name}')
 
 
 @when('Verify Add to Cart button from right side navigation page')
 def verify_add_to_cart_from_right_side(context):
-    context.driver.wait.until(EC.element_to_be_clickable(ADD_TO_CART_SIDE_NAV_BTN)).click()
+    context.app.search_results.verify_add_to_cart_from_right_side()
+    #context.driver.wait.until(EC.element_to_be_clickable(ADD_TO_CART_SIDE_NAV_BTN)).click()
     #context.driver.find_element(*ADD_TO_CART_SIDE_NAV_BTN).click()
 
 
